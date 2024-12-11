@@ -64,7 +64,7 @@ const extract = ({
   sourceTarget,
   subTarget,
   referer,
-  timeout = 20000,
+  timeout = 9000,
 }) => {
   return new Promise((resolve) => {
     extractor.queue(async ({ page }) => {
@@ -137,7 +137,7 @@ const extract = ({
           }
         );
 
-        await page.goto(embedUrl, {
+        await page.goto(embedUrl + "&_debug=true, {
           waitUntil: "domcontentloaded",
           timeout,
         });
@@ -156,7 +156,7 @@ const extract = ({
 /******************** SERVER-LAUNCH ********************/
 import EXPRESS from "express";
 
-const MODULE_VERSION = "1.0.1";
+const MODULE_VERSION = "1.0.0";
 
 const APP = EXPRESS();
 let CLUSTER = await launch();
