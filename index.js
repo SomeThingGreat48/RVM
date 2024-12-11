@@ -137,7 +137,7 @@ const extract = ({
           }
         );
 
-        await page.goto(embedUrl + "&_debug=true, {
+        await page.goto(embedUrl + "&_debug=true", {
           waitUntil: "domcontentloaded",
           timeout,
         });
