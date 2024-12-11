@@ -137,7 +137,7 @@ const extract = ({
           }
         );
 
-        await page.goto(embedUrl + "&_debug=true", {
+        await page.goto(embedUrl, {
           waitUntil: "domcontentloaded",
           timeout,
         });
@@ -156,7 +156,7 @@ const extract = ({
 /******************** SERVER-LAUNCH ********************/
 import EXPRESS from "express";
 
-const MODULE_VERSION = "1.0.0";
+const MODULE_VERSION = "1.0.1";
 
 const APP = EXPRESS();
 let CLUSTER = await launch();
