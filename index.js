@@ -64,7 +64,7 @@ const extract = ({
   sourceTarget,
   subTarget,
   referer,
-  timeout = 9000,
+  timeout = 20000,
 }) => {
   return new Promise((resolve) => {
     extractor.queue(async ({ page }) => {
