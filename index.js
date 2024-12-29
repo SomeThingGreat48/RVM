@@ -137,7 +137,7 @@ const extract = ({
           }
         );
 
-        await page.goto(embedUrl + "&_debug=true", {
+        await page.goto(embedUrl, {
           waitUntil: "domcontentloaded",
           timeout,
         });
@@ -156,7 +156,7 @@ const extract = ({
 /******************** SERVER-LAUNCH ********************/
 import EXPRESS from "express";
 
-const MODULE_VERSION = "1.0.0";
+const MODULE_VERSION = "1.0.1";
 
 const APP = EXPRESS();
 let CLUSTER = await launch();
@@ -176,12 +176,12 @@ APP.listen(process.env.PORT || 5000, () => {
 /******************** SERVER-LAUNCH ********************/
 
 /******************** ROUTES ********************/
-APP.get("/", async (req, res) => {
+APP.get("/", async (_req, res) => {
   res.status(200).json(`ROVER-MODULE [ ${MODULE_VERSION} ]`);
 });
 
 APP.get("/extract", async (req, res) => {
-  const { url, sourceTarget, subTarget } = req.query;
+  const { url, sourceTarget, subTarget, referer } = req.query;
 
   if (ACTIVE >= (Number(process.env.MAX_A) || 1)) {
     res.status(503).json("BUSY");
@@ -195,6 +195,7 @@ APP.get("/extract", async (req, res) => {
     embedUrl: url,
     sourceTarget: sourceTarget || ".m3u8",
     subTarget: subTarget || "getSources",
+    referer: referer,
   });
 
   ACTIVE--;
